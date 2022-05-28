@@ -1,15 +1,11 @@
 const express = require('express');
-//const router = express.Router();  ** [DEPRECATED]
-//const bodyParser = require('body-parser'); ** [DEPRECATED]
+const response = require('./network/response');
 
 
 var app = express();
 
-//app.use(bodyParser.json()); ** [DEPRECATED]
 app.use(express.json());
-//app.use(bodyParser.urlencoded({extended: false})); ** [DEPRECATED]
 app.use(express.urlencoded({extended:false}));
-//app.use(router); ** [DEPRECATED]
 
 app.get('/message', (req, res) => {
     console.log(req.headers); //receibe headers
@@ -18,13 +14,18 @@ app.get('/message', (req, res) => {
         "custom-headers": "Nuestro Header"
     }); //send custom headers
 
-    res.send('Lista de mensajes');
+    response.succes(req, res, 'Lista', 201);
 });
 
 app.post('/message', (req, res) => {
     console.log(req.query);
     console.log(req.body);
-    res.send('Mensaje añadido');
+
+    res .status(201)
+        .send({
+            error: '',
+            message: 'Created'
+        });
 });
 
 app.listen(3000);
