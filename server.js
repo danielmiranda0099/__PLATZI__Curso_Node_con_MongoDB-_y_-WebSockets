@@ -28,6 +28,9 @@ app.post('/message', (req, res) => {
         });
 });
 
+app.use('/app', express.static('public'));
+
+
 app.listen(3000);
 
 console.log('SERVER --------> OK ON PORT 3000');
