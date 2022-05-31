@@ -1,6 +1,8 @@
 const express = require('express');
 const response = require('../../network/response');
 
+const controller = require('./controller');
+
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -14,14 +16,14 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    console.log(req.query);
-    console.log(req.body);
-
-    res .status(201)
-        .send({
-            error: '',
-            message: 'Created'
-        });
+    const {body} = req;
+    controller.addMessage(body.user, body.message)
+        .then( (fullmessage) => {
+            response.succes(req, res, fullmessage, 201);
+        })
+        .catch( () => {
+            response.error(req, res, 'Informacion invalida', 400, 'error en el envio de mensaje')
+        })
 });
 
 module.exports = router;
