@@ -10,7 +10,9 @@ exports.succes = function (req, res, message, status = 200) {
         )
 }
 
-exports.error = function (req, res, message, status = 400) {
+exports.error = function (req, res, message, status = 400, details) {
+    console.log(details);
+
     res
         .status(status)
         .send(
