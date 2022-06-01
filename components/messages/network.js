@@ -6,13 +6,13 @@ const controller = require('./controller');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    console.log(req.headers); //receibe headers
-
-    res.header({
-        "custom-headers": "Nuestro Header"
-    }); //send custom headers
-
-    response.succes(req, res, 'Lista', 201);
+    controller.getMessages()
+                            .then((messageList) => {
+                                response.succes(req, res, messageList, 201);
+                            })
+                            .catch((err) => {
+                                response.error(req, res, 'Unespected Error', 500, err);
+                            })
 });
 
 router.post('/', (req, res) => {
