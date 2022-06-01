@@ -23,9 +23,9 @@ function addMessage(user, message) {
     });
 }
 
-function getMessages() {
+function getMessages(filterUser) {
     return new Promise((resolve, reject) => {
-        resolve( store.getMessages() );
+        resolve( store.getMessages(filterUser) );
     })
 }
 
@@ -41,8 +41,25 @@ function updateMessage(id, message) {
     });
 }
 
+function deleteMesagge(id) {
+    return new Promise( (resolve, reject) => {
+        if( !id ){
+            reject('Id invalid');
+        }
+
+        store.removeMessage(id)
+            .then( () => {
+                resolve();
+            })
+            .catch( (err) => {
+                reject(err);
+            })
+    });
+}
+
 module.exports = {
     addMessage,
     getMessages,
-    updateMessage
+    updateMessage,
+    deleteMesagge
 }

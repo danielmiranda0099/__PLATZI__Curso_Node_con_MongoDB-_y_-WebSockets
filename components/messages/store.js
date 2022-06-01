@@ -3,7 +3,7 @@ const Model = require('./model');
 
 db.Promise = global.Promise;
 
-//          mongodb+srv://admin:admin@clustercursodenode.mjbgkeh.mongodb.net/?retryWrites=true&w=majority
+//mongodb+srv://admin:admin@clustercursodenode.mjbgkeh.mongodb.net/?retryWrites=true&w=majority
 db.connect('mongodb+srv://admin:admin@clustercursodenode.yzk8umk.mongodb.net/?retryWrites=true&w=majority',
 {
     useNewUrlParser: true
@@ -12,16 +12,17 @@ db.connect('mongodb+srv://admin:admin@clustercursodenode.yzk8umk.mongodb.net/?re
 console.log('[db] Conectada con exito');
 
 function addMessage (message) {
-    //ist.push(message);
-    console.log('Creating..........')
     const myMessage = new Model(message);
     myMessage.save();
     console.log('ya debio de crearce');
 }
 
-async function getMessages() {
-    //return list;
-    const messeges = await Model.find();
+async function getMessages(filterUser) {
+    let filter = {};
+    if(filterUser){
+        filter = {user: filterUser}
+    }
+    const messeges = await Model.find( filter );
     return messeges;
 }
 
@@ -33,13 +34,22 @@ async function updateText(id, message) {
     );
 
     foundMessage.message = message;
-    
+
     const newMessage = await foundMessage.save();
     return newMessage;
+}
+
+function removeMessage(id) {
+    return Model.deleteOne(
+        {
+            _id: id
+        }
+    );
 }
 
 module.exports = {
     addMessage,
     getMessages,
-    updateText
+    updateText,
+    removeMessage
 }

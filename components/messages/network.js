@@ -6,7 +6,9 @@ const controller = require('./controller');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    controller.getMessages()
+    const filterMessages = req.query.user || null;
+
+    controller.getMessages(filterMessages)
                             .then((messageList) => {
                                 response.succes(req, res, messageList, 201);
                             })
@@ -38,6 +40,18 @@ router.patch('/:id', (req, res) => {
         })
         .catch( (err) => {
             response.error(req, res, 'Error interno en el Update', 500, err);
+        })
+});
+
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+
+    controller.deleteMesagge(id)
+        .then( () => {
+            response.succes(req, res, `Usuario ${id} Eliminado`, 200)
+        })
+        .catch( (err) => {
+            response.error(req, res, 'Error Interno eliminando usuario', 500, err);
         })
 });
 
