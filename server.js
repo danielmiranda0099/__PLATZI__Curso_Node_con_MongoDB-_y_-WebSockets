@@ -1,8 +1,9 @@
 const express = require('express');
 
-
-//const router = require('./components/messages/network');
+const db = require('./db');
 const router = require('./network/routes');
+
+db('mongodb+srv://admin:admin@clustercursodenode.yzk8umk.mongodb.net/?retryWrites=true&w=majority');
 
 var app = express();
 

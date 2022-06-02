@@ -1,13 +1,5 @@
-const db = require('mongoose');
 const Model = require('./model');
 
-db.Promise = global.Promise;
-
-//mongodb+srv://admin:admin@clustercursodenode.mjbgkeh.mongodb.net/?retryWrites=true&w=majority
-db.connect('mongodb+srv://admin:admin@clustercursodenode.yzk8umk.mongodb.net/?retryWrites=true&w=majority',
-{
-    useNewUrlParser: true
-});
 
 console.log('[db] Conectada con exito');
 
