@@ -6,7 +6,6 @@ console.log('[db] Conectada con exito');
 function addMessage (message) {
     const myMessage = new Model(message);
     myMessage.save();
-    console.log('ya debio de crearce');
 }
 
 async function getMessages(filterUser) {
