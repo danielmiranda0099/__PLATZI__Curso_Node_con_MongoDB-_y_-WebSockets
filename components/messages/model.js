@@ -8,14 +8,19 @@ const mySchema = new Schema(
             type: Schema.ObjectId,
             ref: 'Chat'
         },
+
         user: {
             type: Schema.ObjectId,
             ref: 'User'
         },
+
         message: {
             type: String,
             required: true
-            },
+        },
+        
+        file: String,
+
         date: Date
     }
 );
